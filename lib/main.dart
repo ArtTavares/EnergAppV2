@@ -1,8 +1,12 @@
 import 'package:energapp/pages/login.dart';
+import 'package:energapp/pages/tab.dart';
+import 'package:energapp/services/sharedPreferences.dart';
 import 'package:energapp/shared/color.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'pages/login.dart';
 
 Future<void> main() async {
   // var s = await Firestore.instance.collection("col").doc("doc").set({"test": "tttt"});
@@ -47,7 +51,7 @@ class MyApp extends StatelessWidget {
               bodyText1: TextStyle(color: Colors.white),
               overline: TextStyle(color: Colors.white)),
         ),
-        home: LoginPage());
+        home: _build());
   }
 
   Future<bool> logado() async {
@@ -62,8 +66,8 @@ class MyApp extends StatelessWidget {
         switch (snapshot.connectionState) {
           case ConnectionState.done:
             if (snapshot.data)
-              //   return TabPage();
-              // else
+              return TabPage();
+            else
               return LoginPage();
             break;
           default:
@@ -74,6 +78,8 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+// import 'package:flutter/material.dart';
 
 // void main() {
 //   runApp(MyApp());

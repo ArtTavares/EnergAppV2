@@ -1,8 +1,12 @@
 import 'package:energapp/services/sharedPreferences.dart';
 import 'package:energapp/services/userService.dart';
+import 'package:energapp/pages/cadastroUser.dart';
+import 'package:energapp/pages/recuperarSenha.dart';
+import 'package:energapp/pages/tab.dart';
 import 'package:energapp/shared/button.dart';
 import 'package:energapp/shared/divider.dart';
 import 'package:energapp/shared/input.dart';
+import 'package:energapp/shared/popup.dart';
 import 'package:energapp/shared/scaffold.dart';
 import 'package:flutter/material.dart';
 
@@ -46,8 +50,8 @@ class _LoginPageState extends State<LoginPage> {
                   style: TextStyle(fontSize: 11),
                 ),
                 onTap: () {
-                  // Navigator.of(context).push(MaterialPageRoute(
-                  //     builder: (context) => CadastroUsuarioPage()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => CadastroUsuarioPage()));
                 },
               ),
               InkWell(
@@ -56,8 +60,8 @@ class _LoginPageState extends State<LoginPage> {
                   style: TextStyle(fontSize: 11),
                 ),
                 onTap: () {
-                  // Navigator.of(context).push(MaterialPageRoute(
-                  //     builder: (context) => RecuperarSenhaPage()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => RecuperarSenhaPage()));
                 },
               ),
             ],
@@ -67,10 +71,13 @@ class _LoginPageState extends State<LoginPage> {
         Center(
             child: button(context, "Entrar", () async {
           var logado = await signIn(_login.text, _password.text);
-          if (logado.user.email != null) {
+          print(logado);
+          if (logado.user != null) {
             saveId(logado.user.uid);
-            // Navigator.of(context).pushReplacement(
-            //     MaterialPageRoute(builder: (context) => TabPage()));
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context) => TabPage()));
+          } else {
+            alertDialogPadrao(context, 'Email ou Senha incorretos');
           }
         })),
         divider(context),
@@ -79,8 +86,8 @@ class _LoginPageState extends State<LoginPage> {
               context,
               "Entrar Sem Login",
               () => {
-                    // Navigator.of(context).pushReplacement(
-                    //     MaterialPageRoute(builder: (context) => TabPage()))
+                    Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => TabPage()))
                   }),
         )
       ],

@@ -12,7 +12,7 @@ Widget button(
 }) {
   return Container(
     width: MediaQuery.of(context).size.width * witdh,
-    height: MediaQuery.of(context).size.width * 0.11,
+    height: 50,
     child: RaisedButton(
       onPressed: funcao,
       child: Text(

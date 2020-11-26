@@ -41,6 +41,7 @@ android {
         applicationId "com.example.energapp"
         minSdkVersion 16
         targetSdkVersion 29
+        multiDexEnabled true
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
