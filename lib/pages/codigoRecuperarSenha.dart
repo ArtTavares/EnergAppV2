@@ -16,7 +16,7 @@ class _CodigoRecuperarSenhaPageState extends State<CodigoRecuperarSenhaPage> {
   var _codigo = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return scaffold(context, "Código", body(context), isVisibleOutLogin: false);
+    return scaffold(context, "Código de Recuperação", body(context), isVisibleOutLogin: false);
   }
 
   Widget body(BuildContext context) {

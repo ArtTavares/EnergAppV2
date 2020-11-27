@@ -40,7 +40,7 @@ class _InserirPageState extends State<InserirPage> {
           case ConnectionState.done:
             listaProdutos = snapshot.data;
             return scaffold(
-                context, "Add Eletrodoméstico", body(context, snapshot.data));
+                context, "Adicionar Produto", body(context, snapshot.data));
             break;
           default:
             return Center(child: CircularProgressIndicator());
