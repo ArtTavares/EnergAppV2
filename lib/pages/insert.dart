@@ -57,8 +57,8 @@ class _InserirPageState extends State<InserirPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _container(context, _listarSelectProdutos(data)),
-          input(context, _tempo, "Tempo Médio Ligado", "errorText"),
-          input(context, _quantidade, "Quantidade", "errorText",
+          input(context, _tempo, "Tempo Médio Ligado"),
+          input(context, _quantidade, "Quantidade",
               keyboardType: TextInputType.number),
           Container(
               margin: EdgeInsets.only(
@@ -80,7 +80,7 @@ class _InserirPageState extends State<InserirPage> {
             },
           ),
           RadioListTile<String>(
-            title: input(context, _dias, '', 'errorText',
+            title: input(context, _dias, '',
                 enable: _enable,
                 keyboardType: TextInputType.number,
                 horizontalMarge: 0),

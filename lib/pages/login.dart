@@ -35,8 +35,8 @@ class _LoginPageState extends State<LoginPage> {
       children: [
         Image.asset('images/veloc.png', width: 300, height: 100),
         divider(context, height: MediaQuery.of(context).size.height * 0.06),
-        input(context, _login, "Email", 'email'),
-        input(context, _password, "Senha", 'Senha', password: true),
+        input(context, _login, "Email"),
+        input(context, _password, "Senha", password: true),
         divider(context),
         Container(
           margin: EdgeInsets.symmetric(
@@ -78,8 +78,9 @@ class _LoginPageState extends State<LoginPage> {
             var logado = await signIn(_login.text, _password.text);
             if (logado != null) {
               saveId(logado.user.uid);
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => TabPage()));
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => TabPage()),
+                  (Route<dynamic> route) => false);
             } else {
               alertDialogPadrao(context, 'Email ou Senha incorretos');
             }

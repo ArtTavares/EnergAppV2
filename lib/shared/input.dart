@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-Widget input(BuildContext context, TextEditingController controller,
-    String label, String errorText,
+Widget input(
+    BuildContext context, TextEditingController controller, String label,
     {String counterText,
     bool enable = true,
     TextInputType keyboardType = TextInputType.text,
     bool password = false,
-    double horizontalMarge = 0.08}) {
+    double horizontalMarge = 0.08,
+    String Function(String) validator}) {
   return Container(
     margin: EdgeInsets.symmetric(
         horizontal: MediaQuery.of(context).size.width * horizontalMarge),
@@ -19,6 +20,7 @@ Widget input(BuildContext context, TextEditingController controller,
           keyboardType: keyboardType,
           style: TextStyle(color: Colors.white),
           controller: controller,
+          validator: validator,
           decoration: InputDecoration(
               labelText: label,
               labelStyle: TextStyle(
@@ -40,4 +42,29 @@ Widget input(BuildContext context, TextEditingController controller,
       ],
     ),
   );
+}
+
+String validateString(String value) {
+  if (value.isEmpty) {
+    return 'Campo não pode ser vazio';
+  }
+  return null;
+}
+
+String validateNumber(String value) {
+  if (value.isEmpty) {
+    return 'Campo não pode ser vazio';
+  } else if (int.tryParse(value) == null) {
+    return 'Esse é um campo numérico';
+  }
+  return null;
+}
+
+String validateDouble(String value) {
+  if (value.isEmpty) {
+    return 'Campo não pode ser vazio';
+  } else if (double.tryParse(value) == null) {
+    return 'Esse é um campo numérico';
+  }
+  return null;
 }
