@@ -12,7 +12,7 @@ class TabPage extends StatefulWidget {
 }
 
 class _TabPageState extends State<TabPage> {
-  String _title = "Home";
+  String _title = "Principal";
   bool _visible = true;
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class _TabPageState extends State<TabPage> {
                     Icons.home,
                   ),
                   child: Text(
-                    "Home",
+                    "Principal",
                   ),
                 ),
                 Tab(
@@ -75,10 +75,10 @@ class _TabPageState extends State<TabPage> {
                 ),
               ],
               onTap: (index) {
-                String title = "Home";
+                String title = "Principal";
                 bool visible = true;
                 if (index == 0) {
-                  title = "Home";
+                  title = "Principal";
                   visible = true;
                 } else {
                   title = "Gráfico";

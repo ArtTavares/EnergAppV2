@@ -15,7 +15,7 @@ class _EditarPageState extends State<EditarPage> {
   var _pesquisa = TextEditingController(text: "TV Samsung");
   @override
   Widget build(BuildContext context) {
-    return scaffold(context, "Editar", body(context));
+    return scaffold(context, "Alterar", body(context));
   }
 
   Widget body(BuildContext context) {
