@@ -4,13 +4,15 @@ class ProdutosUsuario {
   String idproduto;
   int quantidade;
   String idusuario;
+  int dias;
 
   ProdutosUsuario(
       {this.idProdutosUsuario,
       this.tempo,
       this.idproduto,
       this.quantidade,
-      this.idusuario});
+      this.idusuario,
+      this.dias});
 
   ProdutosUsuario.fromJson(Map<String, dynamic> json, String id) {
     idProdutosUsuario = id;
@@ -18,6 +20,8 @@ class ProdutosUsuario {
     idproduto = json['idproduto'];
     quantidade = json['quantidade'];
     idusuario = json['idusuario'];
+    idusuario = json['idusuario'];
+    dias = json['dias'];
   }
 
   Map<String, dynamic> toJson() {
@@ -26,6 +30,7 @@ class ProdutosUsuario {
     data['idproduto'] = this.idproduto;
     data['quantidade'] = this.quantidade;
     data['idusuario'] = this.idusuario;
+    data['dias'] = this.dias;
     return data;
   }
 }

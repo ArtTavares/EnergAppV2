@@ -5,6 +5,7 @@ class ListaProdutosUsuario {
   String modelo;
   double kWh;
   int quantidade;
+  int dias;
   int tempo;
 
   ListaProdutosUsuario(
@@ -14,5 +15,6 @@ class ListaProdutosUsuario {
       this.modelo,
       this.idDoc,
       this.quantidade,
+      this.dias,
       this.tempo});
 }

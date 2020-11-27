@@ -19,6 +19,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  var _isLoading = false;
   var _login = TextEditingController();
   var _password = TextEditingController();
   @override
@@ -35,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
         Image.asset('images/veloc.png', width: 300, height: 100),
         divider(context, height: MediaQuery.of(context).size.height * 0.06),
         input(context, _login, "Email", 'email'),
-        input(context, _password, "Senha", 'Senha'),
+        input(context, _password, "Senha", 'Senha', password: true),
         divider(context),
         Container(
           margin: EdgeInsets.symmetric(
@@ -70,26 +71,34 @@ class _LoginPageState extends State<LoginPage> {
         divider(context, height: MediaQuery.of(context).size.height * 0.05),
         Center(
             child: button(context, "Entrar", () async {
-          var logado = await signIn(_login.text, _password.text);
-          print(logado);
-          if (logado.user != null) {
-            saveId(logado.user.uid);
-            Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => TabPage()));
-          } else {
-            alertDialogPadrao(context, 'Email ou Senha incorretos');
+          try {
+            setState(() {
+              _isLoading = true;
+            });
+            var logado = await signIn(_login.text, _password.text);
+            if (logado != null) {
+              saveId(logado.user.uid);
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => TabPage()));
+            } else {
+              alertDialogPadrao(context, 'Email ou Senha incorretos');
+            }
+          } catch (e) {} finally {
+            setState(() {
+              _isLoading = false;
+            });
           }
-        })),
-        divider(context),
-        Center(
-          child: button(
-              context,
-              "Entrar Sem Login",
-              () => {
-                    Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (context) => TabPage()))
-                  }),
-        )
+        }, isloading: _isLoading)),
+        // divider(context),
+        // Center(
+        //   child: button(
+        //       context,
+        //       "Entrar Sem Login",
+        //       () => {
+        //             Navigator.of(context).pushReplacement(
+        //                 MaterialPageRoute(builder: (context) => TabPage()))
+        //           }),
+        // )
       ],
     );
   }

@@ -6,13 +6,16 @@ Widget input(BuildContext context, TextEditingController controller,
     String label, String errorText,
     {String counterText,
     bool enable = true,
-    TextInputType keyboardType = TextInputType.text}) {
+    TextInputType keyboardType = TextInputType.text,
+    bool password = false,
+    double horizontalMarge = 0.08}) {
   return Container(
     margin: EdgeInsets.symmetric(
-        horizontal: MediaQuery.of(context).size.width * 0.08),
+        horizontal: MediaQuery.of(context).size.width * horizontalMarge),
     child: Column(
       children: [
         TextFormField(
+          obscureText: password,
           keyboardType: keyboardType,
           style: TextStyle(color: Colors.white),
           controller: controller,

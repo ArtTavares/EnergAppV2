@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "508492329150",
+    "firebase_url": "https://energ-9aca5.firebaseio.com",
+    "project_id": "energ-9aca5",
+    "storage_bucket": "energ-9aca5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:508492329150:android:19974d1f33b959c3d76eef",
+        "android_client_info": {
+          "package_name": "com.example.energapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "508492329150-fsji5thhfqqulpmto0a26i8sjqpid5rs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.energapp",
+            "certificate_hash": "83b5a1aa258eb65a2275071abaf0e77eb8483e89"
+          }
+        },
+        {
+          "client_id": "508492329150-kro33nq8hslai530d9tr8n9q4erl46uv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIr8Ms57q3eGNcRf57lhQP93gObJ0LpEc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "508492329150-kro33nq8hslai530d9tr8n9q4erl46uv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

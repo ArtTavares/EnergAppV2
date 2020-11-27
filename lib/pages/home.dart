@@ -12,49 +12,67 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Future<List<ListaProdutosUsuario>> listProdsUser;
+  @override
+  initState() {
+    super.initState();
+    listProdsUser = listProdUser();
+  }
+
   double valor = 0.0;
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<ListaProdutosUsuario>>(
-        future: listProdUser(),
+        future: listProdsUser,
         builder: (context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.done:
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  divider(context,
-                      height: MediaQuery.of(context).size.height * 0.1),
-                  Center(
-                    child: Text(
-                      calc(snapshot.data).toString(),
-                      style: TextStyle(fontSize: 40.0),
+              return RefreshIndicator(
+                onRefresh: () async {
+                  setState(() {
+                    listProdsUser = listProdUser();
+                  });
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    divider(context,
+                        height: MediaQuery.of(context).size.height * 0.1),
+                    Center(
+                      child: Text(
+                        "R\$ ${calc(snapshot.data).toStringAsFixed(2).toString().replaceAll('.', ',')}",
+                        style: TextStyle(fontSize: 40.0),
+                      ),
                     ),
-                  ),
-                  divider(context,
-                      height: MediaQuery.of(context).size.height * 0.02),
-                  // Center(
-                  //     child: RichText(
-                  //   text: TextSpan(
-                  //     text: 'Bandeira: ',
-                  //     style: DefaultTextStyle.of(context)
-                  //         .style
-                  //         .copyWith(fontSize: 25),
-                  //     children: <TextSpan>[
-                  //       TextSpan(
-                  //           text: 'Vermelho',
-                  //           style: TextStyle(color: customRedColor)),
-                  //     ],
-                  //   ),
-                  // )),
-                  divider(context,
-                      height: MediaQuery.of(context).size.height * 0.13),
-                  Expanded(
-                    child: list(context, snapshot.data),
-                  )
-                ],
+                    divider(context,
+                        height: MediaQuery.of(context).size.height * 0.02),
+                    // Center(
+                    //     child: RichText(
+                    //   text: TextSpan(
+                    //     text: 'Bandeira: ',
+                    //     style: DefaultTextStyle.of(context)
+                    //         .style
+                    //         .copyWith(fontSize: 25),
+                    //     children: <TextSpan>[
+                    //       TextSpan(
+                    //           text: 'Vermelho',
+                    //           style: TextStyle(color: customRedColor)),
+                    //     ],
+                    //   ),
+                    // )),
+                    divider(context),
+                    Expanded(
+                      child: list(context, snapshot.data),
+                    ),
+                    divider(context),
+                    divider(context),
+                    divider(context),
+                    divider(context),
+                    divider(context),
+                  ],
+                ),
               );
               break;
             default:

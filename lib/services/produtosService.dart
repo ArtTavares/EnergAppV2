@@ -18,13 +18,14 @@ Future<List<Produtos>> getAllProdutos() async {
   }
 }
 
-Future<bool> cadProd(String idProd, int tempo, int quantidade) async {
+Future<bool> cadProd(String idProd, int tempo, int quantidade, int dias) async {
   try {
     var map = Map<String, dynamic>();
     map['idproduto'] = idProd;
     map['idusuario'] = await getId();
     map['quantidade'] = quantidade;
     map['tempo'] = tempo;
+    map['dias'] = dias;
     DocumentReference docRef = await FirebaseFirestore.instance
         .collection('produtos_do_usuario')
         .add(map);
@@ -50,6 +51,7 @@ Future<List<ListaProdutosUsuario>> listProdUser() async {
           modelo: itemProd.modelo,
           idDoc: item.idProdutosUsuario,
           quantidade: item.quantidade,
+          dias: item.dias,
           tempo: item.tempo));
     }
     return listaProdutoUsuario;
@@ -88,7 +90,8 @@ double calc(List<ListaProdutosUsuario> prods) {
   // var dados = (prods.map((e) => e.kWh)).toList();
   double result = 0.0;
   for (var i = 0; i < prods.length; i++) {
-    result += ((prods[i].kWh * prods[i].tempo) * prods[i].quantidade) * 30;
+    result +=
+        ((prods[i].kWh * prods[i].tempo) * prods[i].quantidade) * prods[i].dias;
   }
   result = (result * 0.35118853) + (result * 0.39770492);
   return result;
