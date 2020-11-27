@@ -23,9 +23,9 @@ class _EditarPageState extends State<EditarPage> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          input(context, _pesquisa, "Produto", "errorText", enable: false),
-          input(context, _tempo, "Tempo Médio Ligado", "errorText"),
-          input(context, _quantidade, "Quantidade", "errorText",
+          input(context, _pesquisa, "Produto", enable: false),
+          input(context, _tempo, "Tempo Médio Ligado"),
+          input(context, _quantidade, "Quantidade",
               keyboardType: TextInputType.number),
           divider(context, height: MediaQuery.of(context).size.height * 0.05),
           Center(

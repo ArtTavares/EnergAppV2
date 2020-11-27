@@ -38,8 +38,7 @@ Future<UserCredential> signIn(String email, String senha) async {
 // ignore: missing_return
 Future<UserCredential> recoveryPassword(String email) async {
   try {
-    FirebaseAuth.instance
-        .sendPasswordResetEmail(email: 'taylon.kalel@gmail.com');
+    FirebaseAuth.instance.sendPasswordResetEmail(email: email);
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
       print('No user found for that email.');

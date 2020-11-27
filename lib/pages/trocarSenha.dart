@@ -25,8 +25,8 @@ class _TrocarSenhaPageState extends State<TrocarSenhaPage> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        input(context, _email, "Nova Senha", "errorText"),
-        input(context, _email, "Confirmar Nova Senha", "errorText"),
+        input(context, _email, "Nova Senha"),
+        input(context, _email, "Confirmar Nova Senha"),
         divider(context, height: MediaQuery.of(context).size.height * 0.05),
         Center(
           child: button(

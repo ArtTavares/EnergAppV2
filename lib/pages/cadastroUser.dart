@@ -25,9 +25,9 @@ class _CadastroUsuarioPageState extends State<CadastroUsuarioPage> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        input(context, _nome, "Nome", "errorText"),
-        input(context, _email, "Email", "errorText"),
-        input(context, _senha, "Senha", "errorText"),
+        input(context, _nome, "Nome"),
+        input(context, _email, "Email"),
+        input(context, _senha, "Senha"),
         divider(context, height: MediaQuery.of(context).size.height * 0.05),
         Center(
           child: button(context, "Entrar", () async {

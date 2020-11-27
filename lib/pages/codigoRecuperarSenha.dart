@@ -24,7 +24,7 @@ class _CodigoRecuperarSenhaPageState extends State<CodigoRecuperarSenhaPage> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        input(context, _codigo, "Código", "errorText"),
+        input(context, _codigo, "Código"),
         divider(context, height: MediaQuery.of(context).size.height * 0.05),
         Center(
           child: button(

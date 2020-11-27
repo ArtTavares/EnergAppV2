@@ -2,6 +2,7 @@ import 'package:energapp/pages/grafico.dart';
 import 'package:energapp/pages/home.dart';
 import 'package:energapp/pages/insert.dart';
 import 'package:energapp/pages/login.dart';
+import 'package:energapp/pages/userPage.dart';
 import 'package:energapp/shared/color.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ class _TabPageState extends State<TabPage> {
   Widget body(BuildContext context) {
     return DefaultTabController(
       initialIndex: 0,
-      length: 2,
+      length: 3,
       child: new Scaffold(
           appBar: AppBar(
             centerTitle: true,
@@ -46,7 +47,7 @@ class _TabPageState extends State<TabPage> {
             ],
           ),
           body: TabBarView(
-            children: [HomePage(), GraficoPage()],
+            children: [HomePage(), GraficoPage(), UserPage()],
           ),
           bottomNavigationBar: Container(
             color: customRoxoColor,
@@ -64,6 +65,12 @@ class _TabPageState extends State<TabPage> {
                   icon: new Icon(Icons.insert_chart),
                   child: Text(
                     "Gráfico",
+                  ),
+                ),
+                Tab(
+                  icon: new Icon(Icons.supervised_user_circle),
+                  child: Text(
+                    "Perfil",
                   ),
                 ),
               ],
