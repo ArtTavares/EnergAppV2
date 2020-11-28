@@ -140,12 +140,18 @@ class _InserirPageState extends State<InserirPage> {
   }
 
   String validateDias(String value) {
-    if (_value == '2' && value.isEmpty) {
-      return 'Campo não pode ser vazio';
-    } else if (int.tryParse(value) == null) {
-      return 'Esse é um campo numérico';
-    } else if (int.tryParse(value) > 30) {
-      return 'Campo não pode ser maior que 30';
+    if (_value == '2') {
+      if (value.isEmpty) {
+        return 'Campo não pode ser vazio';
+      } else if (int.tryParse(value) == null) {
+        return 'Esse é um campo numérico';
+      } else if (int.tryParse(value) > 30) {
+        return 'Valor não pode ser maior que 30';
+      }
+      else if (int.tryParse(value) < 1){
+        return 'Valor não pode ser menor que 1';
+      }
+      return null;
     }
     return null;
   }
