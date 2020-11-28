@@ -112,7 +112,7 @@ class _InserirPageState extends State<InserirPage> {
                         setState(() {
                           isloading = true;
                         });
-                        if (_dias.text.isNotEmpty == null) {
+                        if (_dias.text.isNotEmpty) {
                           d = double.parse(_dias.text).round();
                         }
                         if (await cadProd(
