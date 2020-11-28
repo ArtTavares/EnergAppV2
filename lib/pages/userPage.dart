@@ -1,3 +1,4 @@
+import 'package:energapp/services/sharedPreferences.dart';
 import 'package:energapp/services/userService.dart';
 import 'package:energapp/shared/button.dart';
 import 'package:energapp/shared/divider.dart';
@@ -12,7 +13,14 @@ class UserPage extends StatefulWidget {
 
 class _UserPageState extends State<UserPage> {
   var _email = new TextEditingController();
+  var _darkMode = true;
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  Future<void> initState() async {
+    super.initState();
+    _darkMode = await getDarkMode();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +42,13 @@ class _UserPageState extends State<UserPage> {
                 }
               }),
             ),
+            Switch(
+              onChanged: (bool value) {
+                _darkMode = value;
+                setDarkMode(value);
+              },
+              value: _darkMode,
+            )
           ],
         ));
   }

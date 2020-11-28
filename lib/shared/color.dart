@@ -1,3 +1,4 @@
+import 'package:energapp/services/sharedPreferences.dart';
 import 'package:flutter/material.dart';
 
 Map<int, Color> customRoxoBGColor = {
@@ -64,6 +65,13 @@ Map<int, Color> fontColor = {
   800: Color.fromRGBO(255, 255, 255, .9),
   900: Color.fromRGBO(255, 255, 255, 1)
 };
+
+// MaterialColor customBackgroundColor() async {
+//   var darkMode = await getDarkMode();
+//   if (darkMode) {
+//     return MaterialColor(0xFFbf6161, redColor);
+//   }
+// }
 
 // Green color code: FF93cd48
 MaterialColor customBackgroundColor =
