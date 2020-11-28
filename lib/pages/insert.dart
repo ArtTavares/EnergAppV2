@@ -22,7 +22,6 @@ class _InserirPageState extends State<InserirPage> {
   var _quantidade = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   String _value = "padrao";
-  // SingingCharacter _character = SingingCharacter.lafayette
   String _idProduto;
   var listaProdutos = new List<Produtos>();
   Future<List<Produtos>> prods;
@@ -88,7 +87,8 @@ class _InserirPageState extends State<InserirPage> {
                 title: input(context, _dias, '',
                     enable: _enable,
                     keyboardType: TextInputType.number,
-                    horizontalMarge: 0),
+                    horizontalMarge: 0,
+                    validator: validateDias),
                 value: '2',
                 groupValue: _value,
                 onChanged: (_) {
@@ -137,6 +137,17 @@ class _InserirPageState extends State<InserirPage> {
                 ),
               ),
             ]));
+  }
+
+  String validateDias(String value) {
+    if (_value == '2' && value.isEmpty) {
+      return 'Campo não pode ser vazio';
+    } else if (int.tryParse(value) == null) {
+      return 'Esse é um campo numérico';
+    } else if (int.tryParse(value) > 30) {
+      return 'Campo não pode ser maior que 30';
+    }
+    return null;
   }
 
   Widget _customDropDownExample(

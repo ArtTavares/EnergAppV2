@@ -35,6 +35,24 @@ Future<bool> cadProd(String idProd, int tempo, int quantidade, int dias) async {
   }
 }
 
+Future<void> editProd(
+    String idDoc, String idProd, int tempo, int quantidade, int dias) async {
+  try {
+    var map = Map<String, dynamic>();
+    map['idproduto'] = idProd;
+    map['idusuario'] = await getId();
+    map['quantidade'] = quantidade;
+    map['tempo'] = tempo;
+    map['dias'] = dias;
+    await FirebaseFirestore.instance
+        .collection('produtos_do_usuario')
+        .doc(idDoc)
+        .update(map);
+  } catch (e) {
+    throw e;
+  }
+}
+
 Future<List<ListaProdutosUsuario>> listProdUser() async {
   try {
     var listProdutos = await getAllProdutos();
@@ -60,9 +78,20 @@ Future<List<ListaProdutosUsuario>> listProdUser() async {
   }
 }
 
+Future<ProdutosUsuario> getProdUser(String idDoc) async {
+  try {
+    var doc =
+        FirebaseFirestore.instance.collection('produtos_do_usuario').doc(idDoc);
+    var prodUs = await doc.get();
+    return ProdutosUsuario.fromJson(prodUs.data(), doc.id);
+  } catch (e) {
+    throw e;
+  }
+}
+
 Future<void> deleteProdUser(String idDoc) async {
   try {
-    var del = await FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection('produtos_do_usuario')
         .doc(idDoc)
         .delete();

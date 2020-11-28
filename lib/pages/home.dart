@@ -130,6 +130,9 @@ class _HomePageState extends State<HomePage> {
                     iconButton(Icons.delete, customRedColor, () async {
                       // print(idDoc);
                       await deleteProdUser(idDoc);
+                      setState(() {
+                        listProdsUser = listProdUser();
+                      });
                     }),
                     // IconButton(
                     //     icon: Icon(
@@ -143,7 +146,10 @@ class _HomePageState extends State<HomePage> {
                     //     }),
                     iconButton(Icons.mode_edit, customRoxoColor, () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => EditarPage()));
+                          builder: (context) => EditarPage(
+                                idDoc: idDoc,
+                                prod: text,
+                              )));
                     }),
                   ],
                 )

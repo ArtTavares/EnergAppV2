@@ -10,6 +10,11 @@ getId() async {
   return prefs.getString('id');
 }
 
+deslogarShared() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.remove('id');
+}
+
 Future<bool> isLogged() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   return prefs.containsKey('id');
