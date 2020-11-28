@@ -12,33 +12,38 @@ class CadastroUsuarioPage extends StatefulWidget {
 }
 
 class _CadastroUsuarioPageState extends State<CadastroUsuarioPage> {
-  var _nome = TextEditingController();
   var _email = TextEditingController();
   var _senha = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return scaffold(context, "Cadastro", body(context));
   }
 
   Widget body(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        input(context, _nome, "Nome"),
-        input(context, _email, "Email"),
-        input(context, _senha, "Senha"),
-        divider(context, height: MediaQuery.of(context).size.height * 0.05),
-        Center(
-          child: button(context, "Entrar", () async {
-            var incluido = await insert(_email.value.text, _senha.value.text);
-            if (incluido != null) {
-              await await Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => LoginPage()));
-            }
-          }),
-        ),
-      ],
-    );
+    return Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            input(context, _email, "Email", validator: validateString),
+            input(context, _senha, "Senha",
+                password: true, validator: validatePassword),
+            divider(context, height: MediaQuery.of(context).size.height * 0.05),
+            Center(
+              child: button(context, "Entrar", () async {
+                if (_formKey.currentState.validate()) {
+                  var incluido =
+                      await insert(_email.value.text, _senha.value.text);
+                  if (incluido != null) {
+                    await await Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => LoginPage()));
+                  }
+                }
+              }),
+            ),
+          ],
+        ));
   }
 }

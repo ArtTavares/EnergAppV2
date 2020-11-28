@@ -14,30 +14,37 @@ class CodigoRecuperarSenhaPage extends StatefulWidget {
 
 class _CodigoRecuperarSenhaPageState extends State<CodigoRecuperarSenhaPage> {
   var _codigo = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return scaffold(context, "Código de Recuperação", body(context), isVisibleOutLogin: false);
+    return scaffold(context, "Código de Recuperação", body(context),
+        isVisibleOutLogin: false);
   }
 
   Widget body(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        input(context, _codigo, "Código"),
-        divider(context, height: MediaQuery.of(context).size.height * 0.05),
-        Center(
-          child: button(
-              context,
-              "Recuperar Senha",
-              () => {
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                            builder: (context) => TrocarSenhaPage()),
-                        ModalRoute.withName('/'))
-                  }),
-        ),
-      ],
-    );
+    return Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            input(context, _codigo, "Código", validator: validateString),
+            divider(context, height: MediaQuery.of(context).size.height * 0.05),
+            Center(
+              child: button(
+                  context,
+                  "Recuperar Senha",
+                  () => {
+                        if (_formKey.currentState.validate())
+                          {
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                    builder: (context) => TrocarSenhaPage()),
+                                ModalRoute.withName('/'))
+                          }
+                      }),
+            ),
+          ],
+        ));
   }
 }

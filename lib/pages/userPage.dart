@@ -23,7 +23,7 @@ class _UserPageState extends State<UserPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             input(context, _email, "Email de recuperação de senha",
-                validator: validateString),
+              validator: validateString),
             divider(context, height: MediaQuery.of(context).size.height * 0.05),
             Center(
               child: button(context, "Recuperar Senha", () async {

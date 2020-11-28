@@ -14,6 +14,7 @@ class _TrocarSenhaPageState extends State<TrocarSenhaPage> {
   var _nome = TextEditingController();
   var _email = TextEditingController();
   var _senha = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return scaffold(context, "Recuperar Senha", body(context),
@@ -21,24 +22,32 @@ class _TrocarSenhaPageState extends State<TrocarSenhaPage> {
   }
 
   Widget body(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        input(context, _email, "Nova Senha"),
-        input(context, _email, "Confirmar Nova Senha"),
-        divider(context, height: MediaQuery.of(context).size.height * 0.05),
-        Center(
-          child: button(
-              context,
-              "Salvar",
-              () => {
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                        ModalRoute.withName('/'))
-                  }),
-        ),
-      ],
-    );
+    Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            input(context, _email, "Nova Senha",
+                password: true, validator: validatePassword),
+            input(context, _email, "Confirmar Nova Senha",
+                password: true, validator: validatePassword),
+            divider(context, height: MediaQuery.of(context).size.height * 0.05),
+            Center(
+              child: button(
+                  context,
+                  "Salvar",
+                  () => {
+                        if (_formKey.currentState.validate())
+                          {
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                    builder: (context) => LoginPage()),
+                                ModalRoute.withName('/'))
+                          }
+                      }),
+            ),
+          ],
+        ));
   }
 }

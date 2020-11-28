@@ -20,6 +20,7 @@ class _InserirPageState extends State<InserirPage> {
   var _tempo = TextEditingController();
   var _dias = TextEditingController();
   var _quantidade = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   String _value = "padrao";
   // SingingCharacter _character = SingingCharacter.lafayette
   String _idProduto;
@@ -52,82 +53,90 @@ class _InserirPageState extends State<InserirPage> {
   }
 
   Widget body(BuildContext context, List<Produtos> data) {
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _container(context, _listarSelectProdutos(data)),
-          input(context, _tempo, "Tempo Médio Ligado"),
-          input(context, _quantidade, "Quantidade",
-              keyboardType: TextInputType.number),
-          Container(
-              margin: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * 0.08, top: 20),
-              alignment: AlignmentDirectional.centerStart,
-              child: Text(
-                'Quantidade de Dias',
-                style: TextStyle(fontSize: 17),
-              )),
-          RadioListTile<String>(
-            title: const Text('30 Dias'),
-            value: 'padrao',
-            groupValue: _value,
-            onChanged: (_) {
-              setState(() {
-                _value = _;
-                _enable = false;
-              });
-            },
-          ),
-          RadioListTile<String>(
-            title: input(context, _dias, '',
-                enable: _enable,
-                keyboardType: TextInputType.number,
-                horizontalMarge: 0),
-            value: '2',
-            groupValue: _value,
-            onChanged: (_) {
-              setState(() {
-                _value = _;
-                _enable = true;
-              });
-            },
-          ),
-          divider(context, height: MediaQuery.of(context).size.height * 0.05),
-          Center(
-            child: button(
-              context,
-              "Salvar",
-              () async {
-                // getAllProdutos();
-                try {
-                  int d = 30;
+    return Form(
+        key: _formKey,
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _container(context, _listarSelectProdutos(data)),
+              input(context, _tempo, "Tempo médio ligado em horas",
+                  validator: validateNumber),
+              input(context, _quantidade, "Quantidade",
+                  validator: validateNumber,
+                  keyboardType: TextInputType.number),
+              Container(
+                  margin: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.08, top: 20),
+                  alignment: AlignmentDirectional.centerStart,
+                  child: Text(
+                    'Número de dias com o produto ligado',
+                    style: TextStyle(fontSize: 17),
+                  )),
+              RadioListTile<String>(
+                title: const Text('30 Dias'),
+                value: 'padrao',
+                groupValue: _value,
+                onChanged: (_) {
                   setState(() {
-                    isloading = true;
+                    _value = _;
+                    _enable = false;
                   });
-                  if (_dias.text.isNotEmpty == null) {
-                    d = double.parse(_dias.text).round();
-                  }
-                  if (await cadProd(
-                      _idProduto,
-                      double.parse(_tempo.text).round(),
-                      double.parse(_quantidade.text).round(),
-                      d)) {
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) => TabPage()),
-                        (Route<dynamic> route) => false);
-                  }
-                } catch (e) {} finally {
+                },
+              ),
+              RadioListTile<String>(
+                title: input(context, _dias, '',
+                    enable: _enable,
+                    keyboardType: TextInputType.number,
+                    horizontalMarge: 0),
+                value: '2',
+                groupValue: _value,
+                onChanged: (_) {
                   setState(() {
-                    isloading = false;
+                    _value = _;
+                    _enable = true;
                   });
-                }
-              },
-              witdh: 0.8,
-              isloading: isloading,
-            ),
-          ),
-        ]);
+                },
+              ),
+              divider(context,
+                  height: MediaQuery.of(context).size.height * 0.05),
+              Center(
+                child: button(
+                  context,
+                  "Salvar",
+                  () async {
+                    // getAllProdutos();
+                    if (_formKey.currentState.validate()) {
+                      try {
+                        int d = 30;
+                        setState(() {
+                          isloading = true;
+                        });
+                        if (_dias.text.isNotEmpty == null) {
+                          d = double.parse(_dias.text).round();
+                        }
+                        if (await cadProd(
+                            _idProduto,
+                            double.parse(_tempo.text).round(),
+                            double.parse(_quantidade.text).round(),
+                            d)) {
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (context) => TabPage()),
+                              (Route<dynamic> route) => false);
+                        }
+                      } catch (e) {} finally {
+                        setState(() {
+                          isloading = false;
+                        });
+                      }
+                    }
+                  },
+                  witdh: 0.8,
+                  isloading: isloading,
+                ),
+              ),
+            ]));
   }
 
   Widget _customDropDownExample(

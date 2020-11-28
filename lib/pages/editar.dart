@@ -13,26 +13,35 @@ class _EditarPageState extends State<EditarPage> {
   var _tempo = TextEditingController();
   var _quantidade = TextEditingController();
   var _pesquisa = TextEditingController(text: "TV Samsung");
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return scaffold(context, "Alterar", body(context));
+    return scaffold(context, "Editar", body(context));
   }
 
   Widget body(BuildContext context) {
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          input(context, _pesquisa, "Produto", enable: false),
-          input(context, _tempo, "Tempo Médio Ligado"),
-          input(context, _quantidade, "Quantidade",
-              keyboardType: TextInputType.number),
-          divider(context, height: MediaQuery.of(context).size.height * 0.05),
-          Center(
-            child: button(
-                context, "Salvar", () => {Navigator.of(context).pop()},
-                witdh: 0.8),
-          ),
-        ]);
+    return Form(
+        key: _formKey,
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              input(context, _pesquisa, "Produto", enable: false),
+              input(context, _tempo, "Tempo médio ligado em horas"),
+              input(context, _quantidade, "Quantidade",
+                  keyboardType: TextInputType.number),
+              divider(context,
+                  height: MediaQuery.of(context).size.height * 0.05),
+              Center(
+                child: button(
+                    context,
+                    "Salvar",
+                    () => {
+                          if (_formKey.currentState.validate())
+                            {Navigator.of(context).pop()}
+                        },
+                    witdh: 0.8),
+              ),
+            ]));
   }
 }

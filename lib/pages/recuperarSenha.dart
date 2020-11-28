@@ -14,6 +14,7 @@ class RecuperarSenhaPage extends StatefulWidget {
 
 class _RecuperarSenhaPageState extends State<RecuperarSenhaPage> {
   var _email = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return scaffold(context, "Recuperar Senha", body(context),
@@ -21,20 +22,25 @@ class _RecuperarSenhaPageState extends State<RecuperarSenhaPage> {
   }
 
   Widget body(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        input(context, _email, "Email de recuperação de senha"),
-        divider(context, height: MediaQuery.of(context).size.height * 0.05),
-        Center(
-          child: button(context, "Recuperar Senha", () async {
-            await recoveryPassword(_email.text);
-            await Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => LoginPage()));
-          }),
-        ),
-      ],
-    );
+    return Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            input(context, _email, "Email de recuperação de senha",
+                validator: validateString),
+            divider(context, height: MediaQuery.of(context).size.height * 0.05),
+            Center(
+              child: button(context, "Recuperar Senha", () async {
+                if (_formKey.currentState.validate()) {
+                  await recoveryPassword(_email.text);
+                  await Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (context) => LoginPage()));
+                }
+              }),
+            ),
+          ],
+        ));
   }
 }

@@ -68,3 +68,12 @@ String validateDouble(String value) {
   }
   return null;
 }
+
+String validatePassword(String value) {
+  if (value.isEmpty) {
+    return 'Campo não pode ser vazio';
+  } else if (value.length < 6) {
+    return 'Mínimo de 6 caractéres';
+  }
+  return null;
+}
