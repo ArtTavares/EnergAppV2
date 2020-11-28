@@ -16,11 +16,11 @@ class _UserPageState extends State<UserPage> {
   var _darkMode = true;
   final _formKey = GlobalKey<FormState>();
 
-  @override
-  Future<void> initState() async {
-    super.initState();
-    _darkMode = await getDarkMode();
-  }
+  // @override
+  // Future<void> initState() async {
+  //   super.initState();
+  //   _darkMode = await getDarkMode();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +42,13 @@ class _UserPageState extends State<UserPage> {
                 }
               }),
             ),
-            Switch(
-              onChanged: (bool value) {
-                _darkMode = value;
-                setDarkMode(value);
-              },
-              value: _darkMode,
-            )
+            // Switch(
+            //   onChanged: (bool value) {
+            //     _darkMode = value;
+            //     setDarkMode(value);
+            //   },
+            //   value: _darkMode,
+            // )
           ],
         ));
   }
